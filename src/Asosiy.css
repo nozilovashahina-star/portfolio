@@ -1,0 +1,57 @@
+.idcard{
+    display: flex;
+    position: absolute;
+    left: 52%;
+    top: 5%;
+    z-index: 100;
+}
+
+.computer{
+    display: flex;
+    position: absolute;
+    left: 60%;
+    top: 300px;
+    z-index: 1;
+}
+
+.skill{
+    display: flex;
+    position: absolute;
+    left: 10%;
+    top: -70px;
+    rotate: 260deg;
+    z-index: 4;
+}
+
+.folder{
+    display: flex;
+    position: absolute;
+    left: 3%;
+    top: 430px;
+    z-index: 2;
+}
+
+.frames{
+    display: flex;
+    position: absolute;
+    left: 12%;
+    top: 85px;
+    z-index: 1;
+}
+
+.comment{
+    display: flex;
+    position: absolute;
+    left: 77%;
+    top: 200px;
+    z-index: 2;
+}
+
+.phone{
+    display: flex;
+    position: absolute;
+    left: 32%;
+    top: 600px;
+    /* rotate: 320deg; */
+    z-index: 3;
+}

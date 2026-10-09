@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+.info-overlay-wrapper {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: infoFadeIn 0.3s ease;
+  font-family: 'Patrick Hand', cursive;
+  color: #3d3b73;
+}
+
+@keyframes infoFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sketchy-window {
+  width: 75vw;
+  max-width: 900px;
+  height: 70vh;
+  position: relative;
+  background: #fdfbf7;
+  border: 4px solid #3d3b73;
+  border-radius: 16px;
+  box-shadow: 10px 10px 0px rgba(61, 59, 115, 0.15);
+  display: flex;
+  flex-direction: column;
+  /* subtle paper texture */
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.sketchy-window-header {
+  background: #3d3b73;
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  border-bottom: 4px solid #3d3b73;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.window-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 15px;
+  font-size: 1.2rem;
+}
+
+.window-control-btn {
+  cursor: default;
+}
+.window-control-btn.close-btn {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.window-control-btn.close-btn:hover {
+  transform: scale(1.2) rotate(10deg);
+  color: #ffb6b9;
+}
+
+.info-overlay-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* custom scrollbar for sketchy look */
+.info-overlay-content::-webkit-scrollbar {
+  width: 10px;
+}
+.info-overlay-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.info-overlay-content::-webkit-scrollbar-thumb {
+  background: #3d3b73;
+  border-radius: 10px;
+}
+
+/* Base body styles */
+.info-body {
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+/* --- SPECIFIC VIEWS --- */
+
+/* ABOUT ME */
+.about-me-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.about-me-content p {
+  position: relative;
+  margin: 0;
+}
+.highlight {
+  color: #e05e5e;
+  font-weight: bold;
+}
+
+/* SKILLS */
+.skills-layout {
+  display: flex;
+  gap: 40px;
+  height: 100%;
+}
+.skills-left {
+  flex: 1;
+  border-right: 2px dashed rgba(61, 59, 115, 0.3);
+  padding-right: 30px;
+}
+.skills-right {
+  flex: 0.6;
+  padding-left: 10px;
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  background: #3d3b73;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-right: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.skill-bar-container {
+  flex: 1;
+  height: 12px;
+  background: rgba(61, 59, 115, 0.1);
+  border-radius: 10px;
+  position: relative;
+  margin-right: 15px;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: #3d3b73;
+  border-radius: 10px;
+  position: absolute;
+  top: 0; left: 0;
+}
+.skill-percent {
+  font-weight: bold;
+  width: 45px;
+}
+
+.tools-title {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tools-list {
+  list-style: none;
+  padding: 0;
+}
+.tools-list li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+}
+.tools-list li::before {
+  content: "☆";
+  font-size: 1.2rem;
+}
+
+/* CONTACT */
+.contact-layout {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.contact-phone-illustration {
+  width: 250px;
+  height: 450px;
+  border: 4px solid #3d3b73;
+  border-radius: 40px;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  box-shadow: -8px 8px 0px rgba(61, 59, 115, 0.1);
+}
+.phone-notch {
+  width: 80px;
+  height: 15px;
+  background: #3d3b73;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: absolute;
+  top: 0;
+}
+.phone-avatar {
+  width: 80px;
+  height: 80px;
+  border: 3px solid #3d3b73;
+  border-radius: 50%;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #3d3b73;
+}
+.phone-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.3rem;
+  padding: 0 10px;
+}
+
+.contact-links-right {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+  color: #3d3b73;
+  transition: transform 0.2s;
+}
+.contact-item:hover {
+  transform: translateX(10px);
+}
+.contact-icon-bubble {
+  width: 50px;
+  height: 50px;
+  background: #3d3b73;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  border-bottom-left-radius: 5px; /* speech bubble effect */
+}
+.contact-item-text {
+  display: flex;
+  flex-direction: column;
+}
+.contact-platform {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.contact-handle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* Decorations */
+.deco-star {
+  position: absolute;
+  color: #3d3b73;
+  font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(10deg); }
+}

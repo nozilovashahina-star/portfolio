@@ -1,0 +1,7 @@
+/* Badge styles are mostly inline to support dynamic physics. */
+.badge-interactive-wrapper {
+  transition: transform 0.1s ease-out; /* fallback if JS fails, but we override this to none during dragging */
+}
+.badge-spring-svg {
+  pointer-events: none;
+}
