@@ -14,179 +14,103 @@
 
 .notebook-wrapper {
   position: relative;
-  perspective: 2000px;
+  width: 450px;
+  height: 600px;
 }
 
 .notebook-close-btn {
   position: absolute;
   top: -40px;
-  right: 0;
+  right: -40px;
   background: transparent;
   color: white;
   border: none;
-  font-size: 2rem;
+  font-size: 2.5rem;
   cursor: pointer;
   z-index: 100;
 }
 
-.notebook-container {
-  width: 900px;
-  height: 600px;
-  position: relative;
-  display: flex;
-  transform-style: preserve-3d;
-}
-
-.notebook-cover {
-  width: 50%;
-  height: 100%;
+.nav-btn {
   position: absolute;
-  background-color: #6a7bb8;
-  border-radius: 15px 5px 5px 15px;
-  box-shadow: inset 5px 0 10px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.3);
-}
-.cover-right {
-  right: 0;
-  border-radius: 5px 15px 15px 5px;
-  box-shadow: inset -5px 0 10px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.leaf {
-  width: 50%;
-  height: 98%;
-  position: absolute;
-  right: 0;
-  top: 1%;
-  transform-origin: left center;
-  transform-style: preserve-3d;
-  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  color: #333;
   cursor: pointer;
-}
-
-.leaf.flipped {
-  transform: rotateY(-180deg);
-}
-
-.page {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  backface-visibility: hidden;
-  background-color: #fdfcfa;
-  border-radius: 5px 15px 15px 5px;
-  padding: 40px;
-  box-sizing: border-box;
-  box-shadow: inset 4px 0 10px rgba(0,0,0,0.05);
-  overflow: hidden;
-}
-
-.page.back {
-  transform: rotateY(180deg);
-  border-radius: 15px 5px 5px 15px;
-  box-shadow: inset -4px 0 10px rgba(0,0,0,0.05);
-}
-
-.binder-rings {
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 50%;
-  width: 60px;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.ring {
-  position: relative;
-  width: 100%;
-  height: 25px;
-}
-
-.ring-left, .ring-right {
-  position: absolute;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, #999, #e6e6e6, #777);
-  box-shadow: 0 4px 5px rgba(0,0,0,0.2);
-}
-
-.ring-left {
-  left: 0;
-  border-radius: 15px 0 0 15px;
-  border-right: 1px solid #555;
-}
-
-.ring-right {
-  right: 0;
-  border-radius: 0 15px 15px 0;
-  border-left: 1px solid #555;
-}
-
-/* Page content styles */
-.notebook-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #3d3b73;
-}
-
-.notebook-content h2 {
-  font-size: 2.5rem;
-  color: #5b6bb4;
-  margin-bottom: 20px;
-  border-bottom: 3px solid #b8c4f0;
-  display: inline-block;
-  padding-bottom: 5px;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-.notebook-content p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 15px;
-  color: #555;
-}
-
-.notebook-content ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.notebook-content li {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  padding-left: 20px;
-  position: relative;
-}
-
-.notebook-content li::before {
-  content: "☆";
-  position: absolute;
-  left: 0;
-  color: #7b8de6;
-}
-
-.empty-page-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  z-index: 50;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+
+.nav-btn:hover {
+  background: #fff;
+}
+
+.nav-btn-left {
+  left: -60px;
+}
+
+.nav-btn-right {
+  right: -60px;
+}
+
+.flip-book {
+  /* Removed shadow to keep it clean */
+}
+
+.page {
+  background-color: transparent;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-content {
   width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent; /* Removed white background */
 }
 
-.cute-graphics {
-  text-align: center;
-  opacity: 0.7;
+.page-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* or contain depending on image aspect ratio */
+  display: block;
 }
 
-.highlight {
-  color: #5b6bb4;
-  font-weight: 600;
+.page-with-video {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.video-container {
+  position: absolute;
+  top: 110px;
+  bottom: 50px;
+  left: 60px; 
+  right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent; 
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.embedded-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 4px;
 }

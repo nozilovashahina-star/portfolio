@@ -1,0 +1,66 @@
+:root {
+  --grid-color: #A39F95;
+  --bg-color: #F7F4EB;
+  --grid-size: 50px;
+  --line-width: 1.5px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden; /* Assuming single page app without scrolling based on original design */
+}
+
+.background-3d {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -100;
+  pointer-events: none;
+}
+
+.bg-wall {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55vh;
+  background-image: 
+    linear-gradient(var(--grid-color) var(--line-width), transparent var(--line-width)),
+    linear-gradient(90deg, var(--grid-color) var(--line-width), transparent var(--line-width));
+  background-size: var(--grid-size) var(--grid-size);
+  /* Align bottom of wall exactly */
+  background-position: center bottom;
+}
+
+.bg-floor {
+  position: absolute;
+  top: 55vh;
+  left: -100vw;
+  width: 300vw; /* Wide enough to cover perspective trapezoid */
+  height: 150vh;
+  background-image: 
+    linear-gradient(var(--grid-color) var(--line-width), transparent var(--line-width)),
+    linear-gradient(90deg, var(--grid-color) var(--line-width), transparent var(--line-width));
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: center top;
+  
+  transform-origin: center top;
+  transform: perspective(600px) rotateX(75deg);
+}
+
+/* Optional seam shadow for depth */
+.bg-wall::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, rgba(163, 159, 149, 0.2), transparent);
+  pointer-events: none;
+}

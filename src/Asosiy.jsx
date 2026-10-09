@@ -6,7 +6,6 @@ import skill from './assets/skill.png'
 import frames from './assets/frame.jpg'
 import comment from './assets/comment.png'
 import comment2 from './assets/comment 2.png'
-import background from './assets/paper background.jpg'
 import phone from './assets/phone.png'
 import Badge from './Badge'
 import ProjectsOverlay from './ProjectsOverlay'
@@ -19,14 +18,12 @@ const Asosiy = () => {
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isCommentHovered, setIsCommentHovered] = useState(false);
+  const [isFramesHovered, setIsFramesHovered] = useState(false);
 
   // Notebook state
   const [notebookPages, setNotebookPages] = useState(null);
 
-  // CV state
-  const [isCVOpen, setIsCVOpen] = useState(false);
-
-  const folderPages = [
+  const folderPages = React.useMemo(() => [
     <div className="notebook-content">
       <h2>About Me ☆</h2>
       <p>I'm a junior <span className="highlight">front-end developer</span> from <span className="highlight">Gulistan, Uzbekistan</span>, passionate about creating clean, interactive, and user-friendly websites.</p>
@@ -51,9 +48,9 @@ const Asosiy = () => {
       <p style={{ marginTop: '20px' }}>I enjoy learning languages because they allow me to explore different cultures, communicate with more people, and broaden my perspective.</p>
     </div>,
     null // 4th page will be empty cute graphic automatically
-  ];
+  ], []);
 
-  const framePages = [
+  const framePages = React.useMemo(() => [
     <div className="notebook-content">
       <h2>My work Skills ♪</h2>
       <ul>
@@ -67,15 +64,16 @@ const Asosiy = () => {
       </div>
     </div>,
     null, null, null
-  ];
+  ], []);
 
   return (
     <div>
-        <div onClick={() => setIsCVOpen(true)} style={{ cursor: 'pointer' }}>
-          <Badge className="idcard" src={Idcard} />
+        <div className="background-3d">
+          <div className="bg-wall"></div>
+          <div className="bg-floor"></div>
         </div>
 
-        <img  className="background" width="100%" src={background} alt="" />
+        <Badge className="idcard" src={Idcard} />
 
         <img 
           className="computer" 
@@ -87,7 +85,7 @@ const Asosiy = () => {
         />
 
         <img 
-          className="folder" 
+          className="folder hover-scale" 
           height="380" 
           src={folder} 
           alt="" 
@@ -95,16 +93,23 @@ const Asosiy = () => {
           style={{ cursor: 'pointer' }}
         />
 
-        <img 
-          className="phone" 
-          height="220" 
-          src={phone} 
-          alt="" 
-          onClick={() => setIsContactOpen(true)}
-          style={{ cursor: 'pointer' }}
-        />
+        <div className="phone">
+          <img 
+            className="hover-scale" 
+            height="220" 
+            src={phone} 
+            alt="" 
+            onClick={() => setIsContactOpen(true)}
+            style={{ cursor: 'pointer', transition: 'transform 0.3s ease-in-out' }}
+          />
+        </div>
 
-        <img className="skill" height="300" src={skill} alt="" />
+        <img 
+          className={`skill ${isFramesHovered ? 'hovered-scale' : ''}`} 
+          height="300" 
+          src={skill} 
+          alt="" 
+        />
 
         <img 
           className="comment" 
@@ -116,11 +121,13 @@ const Asosiy = () => {
         />
 
         <img 
-          className="frames" 
+          className="frames hover-scale" 
           height="300" 
           src={frames} 
           alt="" 
           onClick={() => setNotebookPages(framePages)}
+          onMouseEnter={() => setIsFramesHovered(true)}
+          onMouseLeave={() => setIsFramesHovered(false)}
           style={{ cursor: 'pointer' }}
         />
 
@@ -130,62 +137,8 @@ const Asosiy = () => {
           <NotebookOverlay 
             pagesData={notebookPages} 
             onClose={() => setNotebookPages(null)} 
+            initialPage={notebookPages === folderPages ? 1 : 0}
           />
-        )}
-
-        {isCVOpen && (
-          <div className="notebook-backdrop" onClick={() => setIsCVOpen(false)}>
-            <div className="cv-modal" onClick={e => e.stopPropagation()}>
-              <button className="notebook-close-btn" onClick={() => setIsCVOpen(false)}>×</button>
-              <div className="cv-content" id="cv-content-to-print">
-                <h2 style={{ color: '#5b6bb4', marginBottom: '20px' }}>Curriculum Vitae</h2>
-                <div style={{ background: '#fdfcfa', padding: '30px', borderRadius: '15px', border: '1px solid #e0e0e0' }}>
-                  <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>Shahina Xayriddinova</h3>
-                  <p style={{ color: '#666', marginBottom: '20px' }}>Junior Front-End Developer | Gulistan, Uzbekistan</p>
-                  
-                  <h4 style={{ borderBottom: '2px solid #b8c4f0', paddingBottom: '5px', marginBottom: '10px' }}>Profile</h4>
-                  <p style={{ fontSize: '0.95rem', marginBottom: '20px' }}>Passionate about creating clean, interactive, and user-friendly websites. Combining technical skills with creativity and attention to detail.</p>
-                  
-                  <h4 style={{ borderBottom: '2px solid #b8c4f0', paddingBottom: '5px', marginBottom: '10px' }}>Skills</h4>
-                  <p style={{ fontSize: '0.95rem', marginBottom: '20px' }}>HTML, CSS, JavaScript, React, Python</p>
-
-                  <h4 style={{ borderBottom: '2px solid #b8c4f0', paddingBottom: '5px', marginBottom: '10px' }}>Languages</h4>
-                  <p style={{ fontSize: '0.95rem', marginBottom: '20px' }}>Uzbek (Native), Russian (Advanced), English (Advanced), Japanese (Learning)</p>
-
-                  <button 
-                    data-html2canvas-ignore="true"
-                    onClick={() => {
-                      import('html2canvas').then(({ default: html2canvas }) => {
-                        import('jspdf').then(({ default: jsPDF }) => {
-                          const input = document.getElementById('cv-content-to-print');
-                          html2canvas(input, { scale: 2 }).then((canvas) => {
-                            const imgData = canvas.toDataURL('image/png');
-                            const pdf = new jsPDF('p', 'mm', 'a4');
-                            const pdfWidth = pdf.internal.pageSize.getWidth();
-                            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-                            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                            pdf.save('Shahina_CV.pdf');
-                          });
-                        });
-                      });
-                    }}
-                    style={{
-                      background: '#5b6bb4',
-                      color: 'white',
-                      border: 'none',
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      fontWeight: 'bold',
-                      marginTop: '10px'
-                    }}
-                  >
-                    Download PDF
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         )}
 
         {isContactOpen && (
