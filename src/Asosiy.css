@@ -55,3 +55,24 @@
     /* rotate: 320deg; */
     z-index: 3;
 }
+
+.cv-modal {
+    width: 500px;
+    max-width: 90%;
+    background-color: #f6f8fb;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    padding: 20px;
+    position: relative;
+    z-index: 1100;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.cv-content {
+    padding: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
