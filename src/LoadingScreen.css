@@ -1,0 +1,126 @@
+/* ===== Loading Screen Overlay ===== */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #F7F4EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.loading-screen.fading-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  transform: translateY(0);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  opacity: 1;
+}
+
+.loading-content.content-fading-out {
+  transform: translateY(-16px);
+  opacity: 0;
+}
+
+.loading-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: #A39F95;
+  text-transform: uppercase;
+}
+
+/* ===== Loader shape styles ===== */
+.loader-shapes {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+}
+
+.loader svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #A39F95;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Circle */
+.loader circle {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 0;
+  animation: pathCircle 2s ease-in-out infinite;
+}
+
+/* Triangle */
+.loader.triangle svg {
+  stroke: #A39F95;
+}
+.loader.triangle polygon {
+  stroke-dasharray: 221;
+  stroke-dashoffset: 0;
+  animation: pathTriangle 2s ease-in-out infinite;
+}
+
+/* Rectangle */
+.loader rect {
+  stroke-dasharray: 256;
+  stroke-dashoffset: 0;
+  animation: pathRect 2s ease-in-out infinite;
+}
+
+/* ===== Loading screen keyframes ===== */
+@keyframes pathCircle {
+  0%   { stroke-dashoffset: 0; }
+  25%  { stroke-dashoffset: 125; }
+  50%  { stroke-dashoffset: 175; }
+  75%  { stroke-dashoffset: 225; }
+  100% { stroke-dashoffset: 275; }
+}
+
+@keyframes pathTriangle {
+  0%   { stroke-dashoffset: 0; }
+  33%  { stroke-dashoffset: 74; }
+  66%  { stroke-dashoffset: 147; }
+  100% { stroke-dashoffset: 221; }
+}
+
+@keyframes pathRect {
+  0%   { stroke-dashoffset: 0; }
+  25%  { stroke-dashoffset: 64; }
+  50%  { stroke-dashoffset: 128; }
+  75%  { stroke-dashoffset: 192; }
+  100% { stroke-dashoffset: 256; }
+}
+
+/* ===== Main page fade-in ===== */
+.page-fade-in {
+  animation: pageFadeIn 0.7s ease forwards;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
