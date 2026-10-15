@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Patrick+Hand&family=Caveat:wght@600;700&display=swap');
+
+/* ===== INTRO SCREEN (PAGE BETWEEN LOADING AND MAIN) ===== */
+
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9000;
+  overflow: hidden;
+  background-color: #FBF9F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.35s ease;
+  user-select: none;
+}
+
+/* When exiting, make background transparent so the main page behind becomes visible */
+.intro-screen.is-exiting {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+/* Layer holding the 6 distinct geometric boxes */
+.intro-boxes-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Individual box base style */
+.intro-box {
+  position: absolute;
+  background-color: #FBF9F2;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s ease;
+}
+
+/* =========================================================
+   GEOMETRIC COORDINATES MATCHING THE REFERENCE IMAGE
+   x1 = calc(40% - 6px), x2 = calc(40% + 6px) -> 12px double line going UP
+   y1 = calc(44% - 6px), y2 = calc(44% + 6px) -> 12px double line going LEFT
+   x3 = calc(52.5% - 6px), x4 = calc(52.5% + 6px) -> 12px double line going DOWN
+   y3 = calc(60% - 6px), y4 = calc(60% + 6px) -> bottom horizontal boundary
+   ========================================================= */
+
+/* 1. TOP-LEFT BOX */
+.box-tl {
+  top: -2px;
+  left: -2px;
+  width: calc(40% - 4px);
+  height: calc(44% - 4px);
+  border: 2px solid #111111;
+  transform: translate(-105vw, -105vh);
+}
+
+.intro-screen.is-entered .box-tl {
+  transform: translate(0, 0);
+  transition-delay: 0.02s;
+}
+
+.intro-screen.is-exiting .box-tl {
+  transform: translate(-120vw, -120vh) rotate(-6deg);
+  transition: transform 0.75s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+/* 2. TOP-RIGHT BOX */
+.box-tr {
+  top: -2px;
+  left: calc(40% + 6px);
+  right: -2px;
+  height: calc(44% - 4px);
+  border: 2px solid #111111;
+  transform: translate(105vw, -105vh);
+}
+
+.intro-screen.is-entered .box-tr {
+  transform: translate(0, 0);
+  transition-delay: 0.06s;
+}
+
+.intro-screen.is-exiting .box-tr {
+  transform: translate(120vw, -120vh) rotate(6deg);
+  transition: transform 0.75s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+/* 3. CENTER SQUARE / BOX */
+.box-center {
+  top: calc(44% + 6px);
+  left: calc(40% + 6px);
+  width: calc(12.5% - 4px);
+  height: calc(16% - 4px);
+  border: 2px solid #111111;
+  transform: scale(0) rotate(-15deg);
+}
+
+.intro-screen.is-entered .box-center {
+  transform: scale(1) rotate(0deg);
+  transition-delay: 0.12s;
+}
+
+.intro-screen.is-exiting .box-center {
+  transform: scale(0) rotate(45deg);
+  opacity: 0;
+  transition: transform 0.65s cubic-bezier(0.32, 0, 0.24, 1), opacity 0.5s ease;
+  transition-delay: 0s;
+}
+
+/* 4. MIDDLE-RIGHT HORIZONTAL BOX */
+.box-mr {
+  top: calc(44% - 4px);
+  left: calc(52.5% + 8px);
+  right: -2px;
+  height: calc(16% + 6px);
+  border: 2px solid #111111;
+  transform: translate(105vw, 0);
+}
+
+.intro-screen.is-entered .box-mr {
+  transform: translate(0, 0);
+  transition-delay: 0.08s;
+}
+
+.intro-screen.is-exiting .box-mr {
+  transform: translate(120vw, 0) rotate(3deg);
+  transition: transform 0.75s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+/* 5. BOTTOM-LEFT BOX */
+.box-bl {
+  top: calc(60% + 8px);
+  left: -4px;
+  width: calc(52.5% + 2px);
+  bottom: -25px;
+  border: 2px solid #111111;
+  transform: translate(-105vw, 105vh);
+}
+
+.intro-screen.is-entered .box-bl {
+  transform: translate(0, 0);
+  transition-delay: 0.04s;
+}
+
+.intro-screen.is-exiting .box-bl {
+  transform: translate(-120vw, 120vh) rotate(6deg);
+  transition: transform 0.75s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+/* 6. BOTTOM-RIGHT BOX */
+.box-br {
+  top: calc(60% + 8px);
+  left: calc(52.5% + 8px);
+  right: -4px;
+  bottom: -25px;
+  border: 2px solid #111111;
+  transform: translate(105vw, 105vh);
+}
+
+.intro-screen.is-entered .box-br {
+  transform: translate(0, 0);
+  transition-delay: 0.1s;
+}
+
+.intro-screen.is-exiting .box-br {
+  transform: translate(120vw, 120vh) rotate(-6deg);
+  transition: transform 0.75s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+
+/* ===== CENTER CONTENT (TEXTS + SKETCH BUTTON) ===== */
+.intro-center-content {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  max-width: 90vw;
+  pointer-events: auto;
+}
+
+/* Text group with clean sketch-card cutout */
+.intro-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(251, 249, 242, 0.95);
+  padding: 14px 32px;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-screen.is-entered .intro-title-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+}
+
+/* On exit: text slides UP and disappears */
+.intro-screen.is-exiting .intro-title-wrapper {
+  opacity: 0;
+  transform: translateY(-80px);
+  transition: opacity 0.45s ease,
+              transform 0.6s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+/* Main Name in Sketch Font */
+.intro-name {
+  margin: 0;
+  font-family: 'Architects Daughter', 'Patrick Hand', cursive, sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+/* Role / Subtitle in Sketch Font */
+.intro-role {
+  margin: 0;
+  font-family: 'Patrick Hand', 'Architects Daughter', cursive, sans-serif;
+  font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+  font-weight: 600;
+  color: #2b2b2b;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.intro-role::before,
+.intro-role::after {
+  content: '✦';
+  font-size: 0.8em;
+  color: #111111;
+  letter-spacing: 0;
+}
+
+/* Button Wrapper */
+.intro-btn-wrapper {
+  margin-top: 36px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-screen.is-entered .intro-btn-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+/* On exit: button slides DOWN and disappears */
+.intro-screen.is-exiting .intro-btn-wrapper {
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 0.45s ease,
+              transform 0.6s cubic-bezier(0.32, 0, 0.24, 1);
+  transition-delay: 0s;
+}
+
+
+/* ===== SKETCH BUTTON STYLING & HOVER EFFECT ===== */
+.sketch-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 34px;
+  background-color: #FBF9F2;
+  color: #111111;
+  font-family: 'Architects Daughter', 'Patrick Hand', cursive, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: 2px solid #111111;
+  /* Hand-drawn sketch border-radius */
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  box-shadow: 4px 4px 0px #111111;
+  outline: none;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              background-color 0.25s ease,
+              color 0.25s ease,
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+}
+
+/* Second sketchy outline (double sketch stroke) */
+.sketch-button::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid #111111;
+  border-radius: 15px 255px 18px 240px/255px 16px 235px 18px;
+  opacity: 0.45;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Sketchy decorative star / icon */
+.sketch-btn-icon {
+  display: inline-block;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Sketch Button Hover Effect */
+.sketch-button:hover {
+  background-color: #111111;
+  color: #ffffff;
+  transform: translate(-3px, -3px) rotate(-1.5deg) scale(1.03);
+  box-shadow: 7px 7px 0px rgba(17, 17, 17, 0.3);
+}
+
+.sketch-button:hover::before {
+  transform: translate(2px, 2px) rotate(2deg);
+  opacity: 0.75;
+  border-color: #111111;
+}
+
+.sketch-button:hover .sketch-btn-icon {
+  transform: rotate(90deg) scale(1.25);
+  color: #ffffff;
+}
+
+/* Active / Click state */
+.sketch-button:active {
+  transform: translate(2px, 2px) rotate(0deg) scale(0.98);
+  box-shadow: 1px 1px 0px #111111;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .intro-name {
+    font-size: 1.8rem;
+  }
+  .intro-role {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+  }
+  .sketch-button {
+    padding: 11px 26px;
+    font-size: 0.95rem;
+  }
+}

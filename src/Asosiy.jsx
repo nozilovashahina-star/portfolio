@@ -3,7 +3,7 @@ import Idcard from './assets/id.png'
 import comp from './assets/comp draw.png'
 import folder from './assets/folder.png'
 import skill from './assets/skill.png'
-import frames from './assets/frame.jpg'
+import frames from './assets/frame.png'
 import comment from './assets/comment.png'
 import comment2 from './assets/comment 2.png'
 import phone from './assets/phone.png'
@@ -18,6 +18,7 @@ import InfoOverlay from './InfoOverlay'
 import NotebookOverlay from './NotebookOverlay'
 import './Asosiy.css'
 import LoadingScreen from './LoadingScreen'
+import IntroScreen from './IntroScreen'
 
 
 const Asosiy = () => {
@@ -25,16 +26,23 @@ const Asosiy = () => {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isCommentHovered, setIsCommentHovered] = useState(false);
   const [isFramesHovered, setIsFramesHovered] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [fadingOut, setFadingOut] = useState(false);
+  const [stage, setStage] = useState('loading'); // 'loading' | 'intro' | 'main'
+  const [loadingFadingOut, setLoadingFadingOut] = useState(false);
 
   useEffect(() => {
-    // After 2s start fade-out, then unmount after 600ms transition
-    const showTimer = setTimeout(() => setFadingOut(true), 2000);
-    const hideTimer = setTimeout(() => setIsLoading(false), 2600);
+    // 1. Keep LoadingScreen visible for 2 seconds, then begin smooth fade-out
+    const fadeTimer = setTimeout(() => {
+      setLoadingFadingOut(true);
+    }, 2000);
+
+    // 2. After 600ms fade-out (2.6s total), switch to 'intro' screen
+    const switchTimer = setTimeout(() => {
+      setStage('intro');
+    }, 2600);
+
     return () => {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
+      clearTimeout(fadeTimer);
+      clearTimeout(switchTimer);
     };
   }, []);
 
@@ -84,13 +92,14 @@ const Asosiy = () => {
     null, null, null
   ], []);
 
-  if (isLoading) {
-    return <LoadingScreen fadingOut={fadingOut} />;
+  if (stage === 'loading') {
+    return <LoadingScreen fadingOut={loadingFadingOut} />;
   }
 
   return (
-    <div className="page-fade-in">
-    <div>
+    <>
+      <div className="page-fade-in">
+      <div>
       <div className="background-3d">
         <div className="bg-wall"></div>
         <div className="bg-floor"></div>
@@ -216,8 +225,14 @@ const Asosiy = () => {
         </InfoOverlay>
       )}
 
-    </div>
-    </div>
+      </div>
+      </div>
+
+      {/* Intro Screen rendered outside page-fade-in to strictly cover full 100vw x 100vh */}
+      {stage === 'intro' && (
+        <IntroScreen onEnterComplete={() => setStage('main')} />
+      )}
+    </>
   )
 }
 
